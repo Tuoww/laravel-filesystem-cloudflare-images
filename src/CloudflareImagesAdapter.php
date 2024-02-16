@@ -36,13 +36,12 @@ class CloudflareImagesAdapter implements FilesystemAdapter
         throw MethodNotAvailable::throw('directoryExists');
     }
 
-    public function write(string $path, $contents, Config $config)
+    public function write(string $path, $contents, Config $config): void
     {
         $usesPathId = $config->get('uses_path_id', false);
 
         $image = Cloudflare::images()->uploadImage($this->accountId, $path, $contents, $usesPathId);
         Log::info(print_r($image, true));
-        return $image;
     }
 
     public function writeStream(string $path, $contents, Config $config): void
