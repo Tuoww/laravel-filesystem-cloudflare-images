@@ -152,6 +152,6 @@ class CloudflareImagesAdapter implements FilesystemAdapter
 
     private function getDetails(string $path): object
     {
-       return Cloudflare::images()->getImageDetails($this->accountId, $path);
+        return Cloudflare::images()->getImageDetails($this->accountId, $path);
     }
 }
