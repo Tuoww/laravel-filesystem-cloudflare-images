@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use League\Flysystem\Config;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemAdapter;
+use Illuminate\Support\Facades\Log;
 
 class CloudflareImagesAdapter implements FilesystemAdapter
 {
@@ -39,9 +40,8 @@ class CloudflareImagesAdapter implements FilesystemAdapter
     {
         $usesPathId = $config->get('uses_path_id', false);
 
-        $id = $usesPathId ? $path : null;
-
-        Cloudflare::images()->uploadImage($this->accountId, $path, $contents, $id);
+        $image = Cloudflare::images()->uploadImage($this->accountId, $path, $contents, $usesPathId);
+        Log::info(print_r($image, true));
     }
 
     public function writeStream(string $path, $contents, Config $config): void
